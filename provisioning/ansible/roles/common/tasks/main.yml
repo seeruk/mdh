@@ -1,0 +1,19 @@
+---
+- name: Update Apt Cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install Prerequisites
+  apt: name={{ item }} state=present
+  with_items:
+  - build-essential
+  - git-core
+  - htop
+  - iotop
+  - language-pack-en
+  - libpcre3-dev
+  - python-configparser
+  - python-mysqldb
+  - software-properties-common
+  - vim
+
+- include: composer.yml

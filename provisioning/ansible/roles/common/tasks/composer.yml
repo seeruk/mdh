@@ -1,0 +1,3 @@
+---
+- name: Install Composer
+  get_url: url=https://getcomposer.org/composer.phar dest=/usr/local/bin/composer mode=0755

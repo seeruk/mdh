@@ -1,0 +1,24 @@
+---
+- name: Download Vagrant
+  get_url: url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb dest=/tmp/vagrant.deb
+
+- name: Install Vagrant
+  apt: deb=/tmp/vagrant.deb
+
+- name: Register Ansible PPA
+  apt_repository: repo='ppa:ansible/ansible' update_cache=yes
+
+- name: Install Ansible
+  apt: name=ansible state=present
+
+- name: Register Docker APT Key
+  apt_key: keyserver=keyserver.ubuntu.com id=36A1D7869245C8950F966E92D8576A8BA88D21E9
+
+- name: Register Docker Repository
+  apt_repository: repo='deb https://get.docker.com/ubuntu docker main' state=present update_cache=yes
+
+- name: Install Docker
+  apt: name=lxc-docker state=present
+
+- name: Register Vagrant User in Docker Group
+  command: usermod -a -G docker vagrant
