@@ -1,0 +1,44 @@
+#!/bin/sh
+# Docker daemon start script
+# Some concepts stolen from Boot2Docker
+
+start() {
+    ulimit -n 1048576
+    ulimit -p 1048576
+
+    /usr/bin/docker -d -H 0.0.0.0:2375 >> /var/log/docker.log 2>&1 &
+}
+
+stop() {
+    kill $(cat /var/run/docker.pid)
+}
+
+restart() {
+    if check; then
+        stop && sleep 1 && start
+    else
+        start
+    fi
+}
+
+check() {
+    [ -f /var/run/docker.pid ] && ps $(cat /var/run/docker.pid) > /dev/null 2>&1
+}
+
+status() {
+    if check; then
+        echo 'Docker daemon is running.'
+        exit 0
+    else
+        echo 'Docker daemon is not running.'
+        exit 1
+    fi
+}
+
+case $1 in
+    start) start;;
+    stop) stop;;
+    restart) restart;;
+    status) status;;
+    *) echo "Usage $0 {start|stop|restart|status}"; exit 1
+esac
