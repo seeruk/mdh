@@ -13,6 +13,12 @@
 
 - name: Register dockerd Service
   template: src=../templates/dockerd.j2 dest=/etc/init.d/dockerd owner=root group=root mode="0755"
+
+- name: Disable docker Service
+  template: src=../templates/docker.override.j2 dest=/etc/init/docker.override owner=root group=root
+
+- name: Enable dockerd Service
+  command: sudo update-rc.d dockerd defaults
   notify:
   - Stop Docker
   - Restart Docker Daemon

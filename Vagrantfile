@@ -2,11 +2,11 @@
 # vi: set ft=ruby :
 
 # PLEASE NOTE:
-# You will need the vagrant-triggers and vagrant-exec plugins installed for this
-# environment to work properly.
+# You will need the plugins listed below for this VM to function correctly.
+# Please also note that the bindfs plugin does make performance a little slower
+# but is necessary for permission in Docker containers to work as expected.
 #
-# $ vagrant plugin install vagrant-triggers
-# $ vagrant plugin install vagrant-exec
+# $ vagrant plugin install vagrant-bindfs
 
 VAGRANTFILE_API_VERSION = "2"
 
@@ -37,13 +37,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/ansible/container_host.yml"
-    end
-
-    node.trigger.after :up do
-      # Stop standard Docker daemon and start remote Docker daemon
-      # @TODO: Make this happen automatically when the VM is booted, in the VM!
-      run 'vagrant exec sudo service docker stop'
-      run 'vagrant exec sudo service dockerd start'
     end
   end
 end
