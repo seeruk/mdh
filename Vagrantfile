@@ -33,7 +33,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node.vm.synced_folder "/Users", "/Users.tmp", type: "nfs"
     node.bindfs.bind_folder "/Users.tmp", "/Users",
-      create_as_user: true
+      create_as_user: true,
+      perms: "u=u:g=g:o=o"
 
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/ansible/container_host.yml"
