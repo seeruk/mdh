@@ -1,8 +1,8 @@
 ---
-- name: Update Apt Cache
+- name: Update apt cache
   apt: update_cache=yes cache_valid_time=3600
 
-- name: Install Prerequisites
+- name: Install prerequisites
   apt: name={{ item }} state=present
   with_items:
   - build-essential
@@ -10,5 +10,9 @@
   - htop
   - iotop
   - language-pack-en
+  - lsyncd
   - software-properties-common
   - vim
+
+- name: Increase filesystem folder watch limit
+  sysctl: name=fs.inotify.max_user_watches value=1000000 state=present
