@@ -10,9 +10,9 @@
 VAGRANTFILE_API_VERSION = '2'
 
 # Configuration
-CPUS       = 4
-MEMORY     = 4096
-MOUNT_ROOT = '/Users/seer/git'
+CPUS    = 4
+MEMORY  = 4096
+MNT_DIR = '/Users/seer/git'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define 'container-host' do |node|
@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node.vm.network 'private_network', ip: '192.168.200.2'
 
-    node.vm.synced_folder MOUNT_ROOT, MOUNT_ROOT, type: 'rsync',
+    node.vm.synced_folder MNT_DIR, MNT_DIR, type: 'rsync',
       owner: 'vagrant',
       group: 'vagrant'
 
