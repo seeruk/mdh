@@ -6,9 +6,11 @@
   apt: name={{ item }} state=present
   with_items:
   - build-essential
+  - cgroup-lite
   - git-core
   - htop
   - iotop
   - language-pack-en
+  - linux-image-extra-{{ ansible_kernel }}
   - software-properties-common
   - vim

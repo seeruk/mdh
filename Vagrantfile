@@ -11,16 +11,16 @@
 VAGRANTFILE_API_VERSION = "2"
 
 # Change these to suite your needs / machine
-CPUS   = 4
-MEMORY = 4096
+CPUS   = ENV["OCH_CPUS"] || 4
+MEMORY = ENV["OCH_MEMORY"] || 4096
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.define "container-host" do |node|
+  config.vm.define "osx-container-host" do |node|
     node.vm.box = "ubuntu/trusty64"
     node.vm.hostname = "container-host"
 
     node.vm.provider "virtualbox" do |v|
-      v.name = "container-host"
+      v.name = "osx-container-host"
 
       v.cpus   = CPUS
       v.memory = MEMORY
