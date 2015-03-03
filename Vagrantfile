@@ -11,7 +11,7 @@ VAGRANTFILE_API_VERSION = '2'
 
 # Configuration
 CPUS    = 8
-MEMORY  = 2048
+MEMORY  = 4096
 MNT_DIR = '/Users/seer/git/projects'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
