@@ -26,6 +26,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.memory = MEMORY
     end
 
+    config.vm.provider :parallels do |v, |
+        override.vm.box = "parallels/ubuntu-14.04"
+        v.update_guest_tools = true
+        v.optimize_power_consumption = false
+        v.customize ["set", :id, "--cpus", CPUS]
+        v.customize ["set", :id, "--memsize", MEMORY]
+        v.customize ["set", :id, "--videosize", "256"]
+    end
+
     node.vm.network "private_network", ip: "192.168.200.2"
 
     node.nfs.map_uid = Process.uid
