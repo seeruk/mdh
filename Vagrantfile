@@ -30,8 +30,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.synced_folder "/Users", "/Users", type: "nfs",
       :mount_options => [ "actimeo=2" ]
 
-    # node.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "provisioning/ansible/container_host.yml"
-    # end
+    node.vm.provision "ansible" do |ansible|
+      ansible.playbook = "provisioning/ansible/container_host.yml"
+    end
   end
 end
